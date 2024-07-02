@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+#updating the log_file to connect without password
+
+Host 54.210.107.215
+IdentityFile ~/.ssh/school 
+PasswordAuthentication no
