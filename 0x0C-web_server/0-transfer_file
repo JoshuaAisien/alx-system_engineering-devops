@@ -1,4 +1,4 @@
-!#/usr/bin/env bash
+#!/usr/bin/env bash
 # sending a file via scp to a remote server
 
 # Function to display the usage message
@@ -8,7 +8,7 @@ usage(){
 
 # check if 4 parameters are provided
 
-if [ "$# -ne 4"]; then 
+if ["$# -ne 4"]; then 
 	usage
 	exit 1
 fi
@@ -31,5 +31,5 @@ scp -i "$PATH_TO_SSH_KEY" -o StrictHostKeyChecking=no $"PATH_TO_FILE" "$USERNAME
 if [$? -eq 0]; then 
 	echo "FIle '$PATH_TO_FILE" transferred successfully to $USERNAME@IP:~/"
 	else 
-	 	echo "Error: File transfer failed
+	 	echo "Error: File transfer failed"
 fi
