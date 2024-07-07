@@ -25,7 +25,7 @@ fi
 
 # Transfer file using scp with strict host key checking disabled
 
-scp -i "$PATH_TO_SSH_KEY" -o StrictHostKeyChecking=no $"PATH_TO_FILE" "$USERNAME@$IP":~
+scp -i "$PATH_TO_SSH_KEY" -o StrictHostKeyChecking=no "$PATH_TO_FILE" "$USERNAME@$IP":~
 
 # check if scp command succeede 
 if [$? -eq 0]; then 
