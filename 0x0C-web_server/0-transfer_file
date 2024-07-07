@@ -31,6 +31,12 @@ scp -i "$PATH_TO_SSH_KEY" -o StrictHostKeyChecking=no "$PATH_TO_FILE" "$USERNAME
 # check if scp command succeede 
 if [ $? -eq 0 ];then 
 	echo "FIle '$PATH_TO_FILE" transferred successfully to $USERNAME@IP:~/"
+<<<<<<< HEAD
 else 
 	echo "Error: File transfer failed"
 fi
+=======
+	else 
+	 	echo "Error: File transfer failed"
+fi
+>>>>>>> 8ad140fcd05520792721cfc2753bfc43d8b0b9bb
