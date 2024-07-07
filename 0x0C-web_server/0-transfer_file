@@ -8,7 +8,7 @@ usage(){
 
 # check if 4 parameters are provided
 
-if ["$# -ne 4"]; then 
+if [ "$# -ne 4" ]; then 
 	usage
 	exit 1
 fi
@@ -18,18 +18,19 @@ IP = "$2"
 USERNAME = "$3"
 PATH_TO_SSH_KEY = "$4"
 
-if [! -f "$PATH_TO_FILE"]; then
+if [ ! -f "$PATH_TO_FILE" ]
+	then
 	echo "Error: file '$PATH_TO_FILE' not found."
 	exit 1
 fi
 
 # Transfer file using scp with strict host key checking disabled
 
-scp -i "$PATH_TO_SSH_KEY" -o StrictHostKeyChecking=no "$PATH_TO_FILE" "$USERNAME@$IP:~"
+scp -i "$PATH_TO_SSH_KEY" -o StrictHostKeyChecking=no "$PATH_TO_FILE" "$USERNAME@$IP":~
 
 # check if scp command succeede 
-if [$? -eq 0]; then 
+if [ $? -eq 0 ];then 
 	echo "FIle '$PATH_TO_FILE" transferred successfully to $USERNAME@IP:~/"
-	else 
-	 	echo "Error: File transfer failed"
+else 
+	echo "Error: File transfer failed"
 fi

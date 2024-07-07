@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#install and configure a batch script.
+
+apt-get -y update
+apt-get -y install Nginx
+ufw allow 'Nginx Http'
+echo "Hello world!" > /var/www/html/index.html
+service Nginx restart
+
+
