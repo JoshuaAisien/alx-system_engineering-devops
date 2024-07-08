@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-#installs, configures and restarts the server 
+# installs, configures and restarts the server 
 sudo apt-get -y update
 sudo apt-get -y install Nginx
 sudo ufw allow 'Nginx Http'
+mkdir -p /var/www/html/
 sudo chmod 755 /var/www
 echo "hello world" > /var/www/html/index.html
 
