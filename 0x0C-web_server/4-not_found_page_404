@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-# installs, configures and restarts the server 
+# install's, configures and restarts the server 
 sudo apt-get -y update
-sudo apt-get -y install Nginx
+sudo apt-get -y install nginx
 sudo ufw allow 'Nginx Http'
-mkdir -p /var/www/html/
-sudo chmod 755 /var/www
 echo "hello world" > /var/www/html/index.html
 #create a custom error 404 page
 echo "Ceci n'est pas une page" > /var/www/html/404.html
@@ -12,7 +10,6 @@ echo "Ceci n'est pas une page" > /var/www/html/404.html
 # check if at least one parameter is provided
 if[$# -ne 1]; then
 	echo" redirect $0 REDIRECT_URL"
-
 fi
 
 sudo tee /etc/nginx/sites-available/default > /dev/null << EOL
