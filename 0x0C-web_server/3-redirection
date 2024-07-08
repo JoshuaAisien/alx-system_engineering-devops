@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# installs, configures and restarts the server 
+sudo apt-get -y update
+sudo apt-get -y install Nginx
+sudo ufw allow 'Nginx Http'
+mkdir -p /var/
+sudo chmod 755 /var/www
+echo "hello world" > /var/www/html/index.html
+
+# check if at least one parameter is provided
+if[$# -ne 1]; then
+	echo" redirect $0 REDIRECT_URL"
+
+fi
+
+sudo tee /etc/nginx/sites-available/default > /dev/null << EOL
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	root /var/www/html;
+	index index.html index.nginx-debian.html
+
+	server_name _;
+
+	location / {
+		try_files \$uri \$uri/ = 404;
+	}
+
+	location /redirect_me{
+		return 301 htttps://www.example.com;
+	}
+
+}
+EOL
+
+# Restart Nginx to apply the changes
+sudo service nginx restart
