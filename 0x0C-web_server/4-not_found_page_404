@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# installs, configures and restarts the server 
+sudo apt-get -y update
+sudo apt-get -y install Nginx
+sudo ufw allow 'Nginx Http'
+mkdir -p /var/www/html/
+sudo chmod 755 /var/www
+echo "hello world" > /var/www/html/index.html
+#create a custom error 404 page
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+
+# check if at least one parameter is provided
+if[$# -ne 1]; then
+	echo" redirect $0 REDIRECT_URL"
+
+fi
+
+sudo tee /etc/nginx/sites-available/default > /dev/null << EOL
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	root /var/www/html;
+	index index.html index.nginx-debian.html
+
+	server_name _;
+
+	location / {
+		try_files \$uri \$uri/ = 404;
+	}
+
+	location /redirect_me{
+		return 301 htttps://www.example.com;
+	}
+
+	# custome 404 error page configuration
+	error_page 404 / 404.html;
+	location = /404.html {
+		internal;
+	}
+
+}
+EOL
+
+# Restart Nginx to apply the changes
+sudo service nginx reload
