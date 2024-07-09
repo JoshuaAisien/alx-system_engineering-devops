@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
 # creating and managing a load balancer
 sudo apt-get update
-sudo apt-get install -y haproxy
+apt-get install --no-install-recommends software-properties-common
+add-apt-repository ppa:vbernat/haproxy-2.2
+apt-get install haproxy=2.2.\*
+echo "ENABLED=1" >> /etc/default/haproxy
 
+# listen to web01 and web02 servers
+echo "frontend http_front
+    	bind *:80
+    	stats uri /haproxy?stats
+    	default_backend http_back
+
+	backend http_back
+    	balance roundrobin
+    	server web01 [STUDENT_ID]-web-01:80 check
+    	server web02 [STUDENT_ID]-web-02:80 check" > default_file
+	
+mv -f default_file >> /etc/haproxy/haproxy.cfg
+
+sudo service restart haproxy
