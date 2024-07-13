@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Configure your domain zone so that the subdomain www points to your load-balancer IP (lb-01). Let’s also add other subdomains to make our life easier and a Bash script that will display information about subdomains.
+
+get_subdomain_info(){
+	local domain=$1
+	local subdomain=$2
+	
+	if [ -z "$domain" ];then 
+		echo "$0 empty domain name"
+		exit 1
+	fi
+
+	local record=$(dig +short "$subdomain.$domain")
+	local record_type=$(echo "$record" | head -n 1 | awk '/^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/ {print "A"; exit} {print "CNAME"}')
+
+	echo "The subdomain $subdomain is a $record_type record and points to $record"
+}
+
+domain=$1
+subdomain=$2
+
+if [ -z "$domain" ]; then
+	echo "empty $0 domain"
+	exit 1
+fi
+
+if [ -z "$subdomain" ]; then 
+	for sub in www lb-01 web-02 web-01;do
+	get_subdomain_info "$domain" "$sub"
+	done
+else 
+	get_subdomain_info "$domain" "$subdomain"
+fi
+
+
