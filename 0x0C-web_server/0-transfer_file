@@ -35,8 +35,5 @@ if [ $? -eq 0 ];then
 else 
 	echo "Error: File transfer failed"
 fi
-=======
-	else 
-	 	echo "Error: File transfer failed"
-fi
+======
 >>>>>>> 8ad140fcd05520792721cfc2753bfc43d8b0b9bb

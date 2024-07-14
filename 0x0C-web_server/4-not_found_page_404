@@ -3,14 +3,8 @@
 sudo apt-get -y update
 sudo apt-get -y install nginx
 sudo ufw allow 'Nginx Http'
-echo "hello world" > /var/www/html/index.html
-#create a custom error 404 page
-echo "Ceci n'est pas une page" > /var/www/html/404.html
-
-# check if at least one parameter is provided
-if[$# -ne 1]; then
-	echo" redirect $0 REDIRECT_URL"
-fi
+echo "hello world" | sudo tee /var/www/html/index.html > /dev/null
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html > /dev/null
 
 sudo tee /etc/nginx/sites-available/default > /dev/null << EOL
 server {
@@ -20,7 +14,7 @@ server {
 	root /var/www/html;
 	index index.html index.nginx-debian.html
 
-	server_name _;
+	server_name pageforge.tech;
 
 	location / {
 		try_files $uri $uri/ = 404;

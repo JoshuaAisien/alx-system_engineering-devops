@@ -21,9 +21,10 @@ server {
 	root /var/www/html;
 	index index.html index.nginx-debian.html
 
-	server_name _;
+	server_name pageforge.tech;
 
 	location / {
+		add_header X-Served-By $HOSTNAME;
 		try_files $uri $uri/ = 404;
 	}
 
