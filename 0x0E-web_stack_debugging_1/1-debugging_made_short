@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Configures Nginx to listen on port 80 and stops the service
-sudo sed -i 's/listen 80 default_server;/listen 80;/; s/listen \[::\]:80 default_server;/listen [::]:80;/g' /etc/nginx/sites-available/default
-sudo ufw allow 'Nginx Full'
-sudo systemctl stop nginx
-
+# Configures an Nginx server to listen on port 80.
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+service nginx start
+kill "$(pgrep 'nginx' | head -1)"
