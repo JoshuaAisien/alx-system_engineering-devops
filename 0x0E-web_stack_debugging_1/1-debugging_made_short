@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# debugging why nginx cannot connect on port 80(HTTTP)
+sudo apt-get update && sudo apt-get install -y nginx
+sudo sed -i 's/listen 80 default_server;/listen 80;/; s/listen \[::\]:80 default_server;/listen [::]:80;/g' /etc/nginx/sites-available/default
+sudo ufw allow 'Nginx Full'
+sudo systemctl restart nginx
