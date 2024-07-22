@@ -2,7 +2,7 @@
 # Configures Nginx to listen on port 80 and stops the service
 
 sudo apt-get update && sudo apt-get install -y nginx
-sudo sed -i 's/listen 80 default_server;/listen 80;/; s/listen \[::\]:80 default_server;/listen [::]:80;/g' /etc/nginx/sites-available/default
+sudo sed -i 's/listen 80 default_server;/listen 80;/; s/listen \[::\]:80 default_server;/listen [::]:80;/g' /etc/nginxsites-available/default
 sudo ufw allow 'Nginx Full'
 sudo systemctl stop nginx
 
