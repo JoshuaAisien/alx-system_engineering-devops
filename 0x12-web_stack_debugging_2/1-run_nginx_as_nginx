@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# A script to configure nginx to rub as the nginx user and listen on port 8080 for all ip connections
+
+#  check if the script is running a root
+if[ "$(id -u)" -ne 0]; then 
+	echo "this script must be run as root."
+	exit 1
+fi
+
+# Ensure the Nginx user exits
+if ! id -u nginx &>/dev/null; then
+	echo" User Nginx does not exists"
+	exit 1
+fi
+
+path to configuration file
+NGINX_CONFIG="/etc/nginx/nginx.conf"
+
+if [! -f "$NGINX_CONF"]; then
+	echo"Nginx configuration file not found ar $NGINX_CONFIG"
+	exit 1
+fi
+# backing up the configuraton file
+cp "$NGINX_CONFIG" "$NGINX_CONFIG.bak"
+
+# modify the Nginx configuration file
+sed -i 's/^user .*/user nginx;/' "$NGINX_CONFIG"
+sed -i 's/listen\s\+[0-9]\+;/listen 8080;/' "NGINX_CONFIG"
+
+# Restart nginx to apply changes
+systemctl restart nginx
+
+if [ $? -eq 0];then
+	echo"nginx has been configured to run as nginx user and listen to port 8080"
+else
+	echo"failed to restart nginx. please check the configuration"
+	mv "$NGINX_CONF.bak" "$NGINX_CONF"
+	systemctl restart nginx
+fi
+
+# check status of nginx 
+systemctl status nginx
