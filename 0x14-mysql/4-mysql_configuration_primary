@@ -35,7 +35,8 @@ log-error	= /var/log/mysql/error.log
 
 # By default we only accept connections from localhost
 #--disabled inorder to enable mysql replication
-#bind-address	= 54.167.94.80
+
+#bind-address	= 127.0.0.1
 
 # Disabling symbolic-links is recommended to prevent assorted security risks
 symbolic-links=0
