@@ -35,6 +35,4 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-rm -f ${DUMP_FILE}
-
 echo "Backup succesful: ${ARCHIVE_FILE}"
